@@ -13,3 +13,11 @@ hs_err_pid*
 
 # dodaj logi z folderu Dane Paliwowe
 !*.log
+query-quality/.idea/compiler.xml
+query-quality/.idea/copyright/profiles_settings.xml
+query-quality/.idea/description.html
+query-quality/.idea/misc.xml
+query-quality/.idea/modules.xml
+query-quality/.idea/project-template.xml
+query-quality/.idea/workspace.xml
+query-quality/query-quality.iml
