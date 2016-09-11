@@ -67,4 +67,12 @@ public class IqScoresList {
             iq.printMe();
         }
     }
+
+    public IqScoreVector getVectorByName(String name) {
+        for (IqScoreVector iq : iqLines) {
+            if (iq.getTableName().equals(name))
+                return iq;
+        }
+        return null;
+    }
 }
