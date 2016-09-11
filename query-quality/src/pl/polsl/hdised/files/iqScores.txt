@@ -1,0 +1,5 @@
+temperatura,20,30,10,60
+pielegniarka,20,30,10,60
+lozko,50,35,25,45
+pacjent,1,1,1,1
+oddzial,90,90,55,78
