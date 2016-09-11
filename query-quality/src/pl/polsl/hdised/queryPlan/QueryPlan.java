@@ -1,5 +1,7 @@
 package pl.polsl.hdised.queryPlan;
 
+import pl.polsl.hdised.sourceIqScores.IqScoresList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,10 +39,11 @@ public class QueryPlan {
 
     public List<Join> findJoins() {
         List<Join> joins = new ArrayList<>();
+        IqScoresList iqScoresList = IqScoresList.getInstance();
         findPattern(query, joinExpressionRegex).forEach(joinExpression -> {
-            Join join = new Join();
-            join.table1 = findJoinLeftTableName(joinExpression);
-            join.table2 = findJoinRightTableName(joinExpression);
+            Join join = new Join(
+                    iqScoresList.getVectorByName(findJoinLeftTableName(joinExpression)),
+                    iqScoresList.getVectorByName(findJoinRightTableName(joinExpression)));
             joins.add(join);
         });
         return joins;
