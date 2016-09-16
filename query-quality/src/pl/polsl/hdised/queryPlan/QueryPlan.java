@@ -1,5 +1,7 @@
 package pl.polsl.hdised.queryPlan;
 
+import pl.polsl.hdised.TableNotFoundException;
+import pl.polsl.hdised.sourceIqScores.IqScoreVector;
 import pl.polsl.hdised.sourceIqScores.IqScoresList;
 
 import java.io.IOException;
@@ -37,15 +39,18 @@ public class QueryPlan {
         this.query = query;
     }
 
-    public List<Join> findJoins() {
+    public List<Join> findJoins() throws TableNotFoundException {
         List<Join> joins = new ArrayList<>();
         IqScoresList iqScoresList = IqScoresList.getInstance();
-        findPattern(query, joinExpressionRegex).forEach(joinExpression -> {
-            Join join = new Join(
-                    iqScoresList.getVectorByName(findJoinLeftTableName(joinExpression)),
-                    iqScoresList.getVectorByName(findJoinRightTableName(joinExpression)));
-            joins.add(join);
-        });
+        for(String joinExpression: findPattern(query, joinExpressionRegex)) {
+            IqScoreVector table1 = iqScoresList.getVectorByName(findJoinLeftTableName(joinExpression));
+            IqScoreVector table2 = iqScoresList.getVectorByName(findJoinRightTableName(joinExpression));
+            if(table1 == null || table2 == null) {
+                System.err.println("[ERROR] nie rozpoznano tabeli");
+                throw new TableNotFoundException();
+            }
+            joins.add(new Join(table1, table2));
+        }
         return joins;
     }
 

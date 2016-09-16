@@ -7,9 +7,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Wookie on 2016-09-07.
- */
 public class IqScoresList {
 
     private static IqScoresList instance = null;
@@ -63,9 +60,11 @@ public class IqScoresList {
     }
 
     public void printAll() {
+        System.out.println("TABLES:\n");
         for(IqScoreVector iq : iqLines) {
             iq.printMe();
         }
+        System.out.println();
     }
 
     public IqScoreVector getVectorByName(String name) {

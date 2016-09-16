@@ -1,4 +1,5 @@
-SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-FROM Orders
-INNER JOIN Customers
-ON Orders.CustomerID=Customers.CustomerID;
+SELECT *
+FROM temperatura, pielegniarka, pacjent
+WHERE
+temperatura.id_piel = pielegniarka.id
+AND pacjent.id_temp = temperatura.id

@@ -4,9 +4,6 @@ import pl.polsl.hdised.queryPlan.Join;
 
 import java.util.List;
 
-/**
- * Created by Wookie on 2016-09-11.
- */
 public class IqScoreRootVector {
 
     private static IqScoreRootVector instance = null;

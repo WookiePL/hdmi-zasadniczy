@@ -1,9 +1,13 @@
 package pl.polsl.hdised;
 
+import pl.polsl.hdised.queryPlan.Join;
 import pl.polsl.hdised.queryPlan.QueryPlan;
+import pl.polsl.hdised.sourceIqScores.IqScoreRootVector;
+import pl.polsl.hdised.sourceIqScores.IqScoreVector;
 import pl.polsl.hdised.sourceIqScores.IqScoresList;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
     private static String queryFilePath;
@@ -19,17 +23,26 @@ public class Main {
         }
 
         try {
+            IqScoresList iqScoresList = IqScoresList.getInstance();
+            iqScoresList.setFileWithIqScoresData(fileWithIqscoresData);
+            iqScoresList.getDataFromFile();
+            iqScoresList.printAll();
+
             QueryPlan queryPlan = new QueryPlan(queryFilePath);
             queryPlan.printInfo();
-//            queryPlan.findJoins().forEach(Join::print);
+            List<Join> joins = queryPlan.findJoins();
+
+            IqScoreRootVector iqScoreRootVector = IqScoreRootVector.getInstance();
+            IqScoreVector queryPlanIqVector = iqScoreRootVector.calculateRootResultVector(joins);
+
+            System.out.println("QUERY INFORMATION QUALITY VECTOR:\n");
+            queryPlanIqVector.nicePrintMe();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        IqScoresList iqScoresList = IqScoresList.getInstance();
-        iqScoresList.setFileWithIqScoresData(fileWithIqscoresData);
-        iqScoresList.getDataFromFile();
-        iqScoresList.printAll();
+        catch (TableNotFoundException e) {
+            System.out.println("Wystapil blad");
+        }
     }
 }

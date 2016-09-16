@@ -74,4 +74,11 @@ public class IqScoreVector {
     public void printMe() {
         System.out.println(this.tableName + ": " + "p = " + this.believability + ", c = " + this.objectivity + ", r = " + this.reputation + ", w = " + this.verifiability);
     }
+
+    public void nicePrintMe() {
+        System.out.println("believability: " + this.believability);
+        System.out.println("objectivity: " + this.objectivity);
+        System.out.println("reputation: " + this.reputation);
+        System.out.println("verifiability: " + this.verifiability);
+    }
 }
