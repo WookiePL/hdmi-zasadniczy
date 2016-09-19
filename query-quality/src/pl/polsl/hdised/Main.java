@@ -7,6 +7,7 @@ import pl.polsl.hdised.sourceIqScores.IqScoreVector;
 import pl.polsl.hdised.sourceIqScores.IqScoresList;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 
 public class Main {
@@ -14,15 +15,11 @@ public class Main {
     private static String fileWithIqscoresData;
 
     public static void main(String[] args) {
-        if (System.getProperty("user.name").equals("Wookie")) {
-            queryFilePath = "F:\\Projects\\hdmi-zasadniczy\\query-quality\\src\\pl\\polsl\\hdised\\files\\query.sql";
-            fileWithIqscoresData = "F:\\Projects\\hdmi-zasadniczy\\query-quality\\src\\pl\\polsl\\hdised\\files\\iqScores.txt";
-        } else {
-            queryFilePath = "X:\\CO SE STUDIUJE\\sem6\\HDiSED\\hdmi\\hdmi-zasadniczy\\query-quality\\src\\pl\\polsl\\hdised\\files\\query.sql";
-            fileWithIqscoresData = "X:\\CO SE STUDIUJE\\sem6\\HDiSED\\hdmi\\hdmi-zasadniczy\\query-quality\\src\\pl\\polsl\\hdised\\files\\\\iqScores.txt";
-        }
 
         try {
+            queryFilePath = args[1];
+            fileWithIqscoresData = args[0];
+
             IqScoresList iqScoresList = IqScoresList.getInstance();
             iqScoresList.setFileWithIqScoresData(fileWithIqscoresData);
             iqScoresList.getDataFromFile();
@@ -43,6 +40,8 @@ public class Main {
         }
         catch (TableNotFoundException e) {
             System.out.println("Wystapil blad");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Podano złą ilość argumentów (" + args.length + " a ma być 2: ścieżka do iqScores (np. iqScores.txt) oraz ścieżka do query (np. query.sql))");
         }
     }
 }

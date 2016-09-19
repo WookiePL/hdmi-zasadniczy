@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="query-quality:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/query_quality_jar</output-path>
+    <root id="archive" name="query-quality.jar">
+      <element id="module-output" name="query-quality" />
+    </root>
+  </artifact>
+</component>
